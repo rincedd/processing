@@ -12,6 +12,7 @@ void setup() {
 
 void draw()
 {
+  background(200);
 }
 
 void makeBubbles()

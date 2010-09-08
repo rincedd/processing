@@ -6,6 +6,7 @@ public class DataBubble
   int alphaVal;
   String label;
   PApplet parent;
+  boolean hovered;
 
   DataBubble(PApplet parent, PVector location, float radius)
   {
@@ -15,7 +16,9 @@ public class DataBubble
     this.col = color(random(255), random(255), random(255));
     this.alphaVal = 255;
     this.label = new String("");
+    this.hovered = false;
     this.parent.registerDraw(this);
+    this.parent.registerMouseEvent(this);
   }
 
   void setColor(color col)
@@ -33,12 +36,18 @@ public class DataBubble
     label = lbl;
   }
 
+  void setHovered(boolean val) {
+    hovered = val;
+  }
+
   void draw()
   {
-    pushMatrix();
     translate(location.x, location.y);
     rotate(HALF_PI);
-    noStroke();
+    if (hovered)
+      stroke(255);
+    else
+      noStroke();
     fill(col, alphaVal);
     ellipse(0, 0, 2*radius, 2*radius);
     textMode(MODEL);
@@ -47,7 +56,20 @@ public class DataBubble
     PFont font = loadFont("DejaVuSans-10.vlw");
     textFont(font, 10);
     text(label, 5, 3);
-    popMatrix();
+    rotate(-HALF_PI);
+    translate(-location.x, -location.y);
+  }
+
+  void mouseEvent(MouseEvent event) {
+    if (event.getID() == MouseEvent.MOUSE_MOVED)
+    {
+      PVector mouse = new PVector(event.getX(), event.getY());
+      if (PVector.dist(mouse, location) <= radius)
+        setHovered(true);
+      else
+        setHovered(false);
+      parent.redraw();
+    }
   }
 }
 
