@@ -5,6 +5,7 @@ color white = color(255);
 void setup()
 {
   size(400, 400);
+  smooth();
   background(0);
   ants = new ArrayList();
 }
