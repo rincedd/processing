@@ -42,7 +42,7 @@ class Ant {
     pushMatrix();
     translate(loc.x, loc.y);
     noStroke();
-    fill(col, 50);
+    fill(col, 30);
     ellipse(0, 0, 2*radius, 2*radius);
     popMatrix();
   }
