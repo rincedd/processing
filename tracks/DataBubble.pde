@@ -52,7 +52,10 @@ public class DataBubble
     ellipse(0, 0, 2*radius, 2*radius);
     textMode(MODEL);
     textAlign(LEFT);
-    fill(col, 255);
+    if (hovered)
+      fill(255);
+    else
+      fill(col, 255);
     PFont font = loadFont("DejaVuSans-10.vlw");
     textFont(font, 10);
     text(label, 5, 3);

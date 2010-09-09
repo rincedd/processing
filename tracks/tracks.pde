@@ -17,10 +17,10 @@ void draw()
 
 void makeBubbles()
 {
-  HashMap artistCount = data.artistCount();
+  HashMap artistCount = data.artistCount(2);
   Iterator i = artistCount.entrySet().iterator();  // Get an iterator
   int j = 1;
-  float space = width / artistCount.size();
+  float space = width / (artistCount.size() + 1);
   while (i.hasNext()) {
     Map.Entry me = (Map.Entry) i.next();
     color c = color(random(255), random(255), random(255));

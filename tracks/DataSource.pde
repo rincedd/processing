@@ -12,7 +12,7 @@ class DataSource {
     println("Filled tracklist with " + tracklist.size() + " entries");
   }
 
-  HashMap artistCount() {
+  HashMap artistCount(int threshold) {
     HashMap ac = new HashMap();
     for (int i = 0; i < tracklist.size(); i++)
     {
@@ -24,6 +24,15 @@ class DataSource {
         Integer val = (Integer) ac.get(ti.artist());
         ac.put(ti.artist(), val + 1);
       }
+    }
+
+    // delete all entries with count < threshold
+    Iterator i = ac.entrySet().iterator();
+    while (i.hasNext())
+    {
+      Map.Entry me = (Map.Entry) i.next();
+      if ((Integer) me.getValue() < threshold)
+        i.remove();
     }
     return ac;
   }
