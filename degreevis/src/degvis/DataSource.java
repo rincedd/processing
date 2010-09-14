@@ -57,6 +57,12 @@ public class DataSource {
 		}
 	}
 	
+	public void normalizeDists() {
+		Iterator<DegDist> i = dists.values().iterator();
+		while (i.hasNext())
+			i.next().normalize();
+	}
+	
 	public boolean hasNextDist() {
 		assert(current != null);
 		return current.hasNext();

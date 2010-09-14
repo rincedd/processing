@@ -11,33 +11,28 @@ public class DegvisApp extends PApplet {
 	int col;
 
 	public void setup() {
-		size(400, 600);
+		size(400, 400);
 		frameRate(10);
 		background(255);
 		smooth();
 		noLoop();
 		dat = new DataSource(this, "deg.dat");
+		dat.normalizeDists();
 		dist = null;
-		col = color(random(100), random(100), random(100));
+		col = color(80, 0, 80);
 	}
 
 	public void draw() {
 		noStroke();
 		fill(255, 50);
 		rect(0, 0, width, height);
-		noFill();
+		pushMatrix();
 		float xsep = 20;
-		float left = width / 2;
-		float bottom = height - 2 * xsep;
-		float ticlen = 4;
+		float maxHeight = height / 2;
+		translate(20, maxHeight + 20);
+		noFill();
 		stroke(180);
-		line(left, bottom, width - xsep, bottom);
-		line(left, bottom, left, 5*xsep);
-		for (int k = 0; k < 20; k++)
-		{
-			line(left + k*xsep, bottom + ticlen/2, left + k*xsep, bottom - ticlen/2);
-			line(left - ticlen/2, bottom - k*10, left + ticlen/2, bottom - k*10);
-		}
+		drawAxes(0, xsep * 10, 0, -maxHeight, 10, 10);
 		if (dat.hasNextDist())
 			dist = dat.nextDist().getValue();
 		assert (dist != null);
@@ -45,13 +40,27 @@ public class DegvisApp extends PApplet {
 		stroke(col);
 		beginShape();
 		for (int k = 0; k < val.size(); k++) {
-			curveVertex(left + k * xsep, bottom - val.get(k).floatValue());
+			curveVertex(k * xsep, -val.get(k).floatValue() * maxHeight);
 		}
 		endShape();
+		popMatrix();
+	}
+
+	public void drawAxes(float xmin, float xmax, float ymin, float ymax,
+			int xtics, int ytics) {
+		line(xmin, ymin, xmax, ymin);
+		line(xmin, ymin, xmin, ymax);
+		float dx = (xmax - xmin) / xtics;
+		float dy = (ymax - ymin) / ytics;
+		float ticlen = 4;
+		for (int i = 0; i < xtics; i++)
+			line(xmin + i * dx, -ticlen / 2, xmin + i * dx, ticlen / 2);
+		for (int i = 0; i < ytics; i++)
+			line(-ticlen / 2, ymin + i * dy, ticlen / 2, ymin + i * dy);
 	}
 
 	public void mousePressed() {
 		loop();
-		//redraw();
+		// redraw();
 	}
 }
