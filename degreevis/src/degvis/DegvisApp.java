@@ -37,11 +37,15 @@ public class DegvisApp extends PApplet {
 			dist = dat.nextDist().getValue();
 		assert (dist != null);
 		ArrayList<Double> val = dist.values();
+		assert (val.size() > 0);
 		stroke(col);
 		beginShape();
+		curveVertex(0, -val.get(0).floatValue() * maxHeight);
 		for (int k = 0; k < val.size(); k++) {
 			curveVertex(k * xsep, -val.get(k).floatValue() * maxHeight);
 		}
+		curveVertex((val.size() - 1) * xsep, -val.get(val.size() - 1)
+				.floatValue() * maxHeight);
 		endShape();
 		popMatrix();
 	}
