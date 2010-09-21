@@ -7,5 +7,10 @@
 			<attribute name="javadoc_location" value="http://processing.googlecode.com/svn/tags/processing-1.2.1/build/javadoc/core/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/gerd/workspace/sketchbook/libraries/gwoptics/library/gwoptics.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/gerd/workspace/sketchbook/libraries/gwoptics/reference/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
