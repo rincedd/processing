@@ -6,11 +6,13 @@ public class DataBubble
   int alphaVal;
   String label;
   PApplet parent;
+  PFont font;
   boolean hovered;
 
-  DataBubble(PApplet parent, PVector location, float radius)
+  DataBubble(PApplet parent, PVector location, float radius, PFont font)
   {
     this.parent = parent;
+    this.font = font;
     this.location = location;
     this.radius = radius;
     this.col = color(random(255), random(255), random(255));
@@ -37,7 +39,10 @@ public class DataBubble
   }
 
   void setHovered(boolean val) {
-    hovered = val;
+    if (hovered != val) {
+      hovered = val;
+      parent.redraw();
+    }
   }
 
   void draw()
@@ -56,7 +61,6 @@ public class DataBubble
       fill(255);
     else
       fill(col, 255);
-    PFont font = loadFont("DejaVuSans-10.vlw");
     textFont(font, 10);
     text(label, 5, 3);
     rotate(-HALF_PI);
@@ -71,7 +75,6 @@ public class DataBubble
         setHovered(true);
       else
         setHovered(false);
-      parent.redraw();
     }
   }
 }
